@@ -3,7 +3,7 @@ WORKDIR /base
 COPY . .
 RUN make clean-build
 
-FROM debian:stable-20240211-slim
+FROM debian:stable-20240311-slim
 ARG APP_USER=app-user
 RUN apt-get update && apt-get upgrade -y && apt-get install -y ca-certificates && \
     rm -rf /var/lib/apt/lists/*
