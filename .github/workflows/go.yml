@@ -1,0 +1,57 @@
+name: Go Workflows
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+
+jobs:
+  lint:
+    name: golangci-lint
+    permissions:
+      contents: read
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+      - name: Setup Go ToolChain
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: "./go.mod"
+          cache: false
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v4
+        with:
+          version: "latest"
+          args: "--config=./.golangci.yml"
+
+  coverage:
+    name: code-coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+      - name: Setup Go ToolChain
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: "./go.mod"
+      - name: Calculate Code Coverage
+        run: |
+          make coverage
+
+  build:
+    name: build-app
+    needs:
+      - coverage
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch
+        uses: actions/checkout@v4
+      - name: Setup Go ToolChain
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: "./go.mod"
+      - name: Build Go App
+        run: |
+          make build

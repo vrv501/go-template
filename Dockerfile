@@ -1,0 +1,15 @@
+FROM golang:1.22.0-bullseye AS builder
+WORKDIR /base
+COPY . .
+RUN make clean-build
+
+FROM debian:stable-20240211-slim
+ARG APP_USER=app-user
+RUN apt-get update && apt-get upgrade -y && apt-get install -y ca-certificates && \
+    rm -rf /var/lib/apt/lists/*
+COPY --from=builder /base/bin/app /usr/bin
+RUN groupadd $APP_USER && useradd -g $APP_USER $APP_USER
+USER $APP_USER
+
+ENTRYPOINT ["/usr/bin/app"]
+HEALTHCHECK NONE

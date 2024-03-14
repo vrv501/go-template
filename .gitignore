@@ -15,7 +15,14 @@
 *.out
 
 # Dependency directories (remove the comment below to include it)
-# vendor/
+vendor/
 
-# Go workspace file
+# env vars
+*.env 
+
+# Go related files
 go.work
+*_mock.go
+
+# Misc
+tmp/
