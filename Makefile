@@ -1,7 +1,7 @@
 #!/usr/bin/make
 
 export GOPRIVATE := ''
-coverage_dir := coverage/go
+coverage_dir := coverage
 
 vendor: go.mod go.sum
 	@go mod download
@@ -35,14 +35,11 @@ test: vendor generate
 
 coverage: vendor generate
 	@mkdir -p "$(coverage_dir)/html"
-	CGO_ENABLED=1 go test -race -coverpkg=./... -coverprofile=$(coverage_dir)/coverage.out -v ./...
-	@go tool cover -html=$(coverage_dir)/coverage.out -o $(coverage_dir)/html/main.html
-	@echo "Generated $(coverage_dir)/html/main.html"
+	CGO_ENABLED=1 go test -race -covermode=atomic -coverpkg=./... -coverprofile=$(coverage_dir)/coverage.out -v ./...
 .PHONY: coverage
 
 clean:
 	@rm -rf coverage bin vendor test-reports
-	@find . -type f -name '*_mock.go' -delete
 .PHONY: clean
 
 run:
