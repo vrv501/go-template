@@ -19,11 +19,11 @@ func Test_main(t *testing.T) {
 		},
 	}
 	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if tt.prepFunc != nil {
-				tt.prepFunc(t)
-			}
+		if tt.prepFunc != nil {
+			tt.prepFunc(t)
+		}
 
+		t.Run(tt.name, func(t *testing.T) {
 			defer func() { recover() }()
 			main()
 		})
