@@ -2,18 +2,18 @@ run:
   timeout: 30m
   tests: false
   skip-dirs-use-default: true
-  skip-files:
-    - ".*mock\\.go$"
-    - ".*test\\.go$"
-    - ".*\\.gen\\.go$"
-    - ".*\\.generated\\.go$"
-    - ".*\\.pb\\.go$"
 
 issues:
   exclude-rules:
     - linters:
         - lll
       source: "^//go:generate "
+  exclude-files:
+    - ".*mock\\.go$"
+    - ".*test\\.go$"
+    - ".*\\.gen\\.go$"
+    - ".*\\.generated\\.go$"
+    - ".*\\.pb\\.go$"
   max-issues-per-linter: 0
   max-same-issues: 0
   new: false
@@ -114,7 +114,6 @@ linters-settings:
       enable-all: true
       disable:
         - fieldalignment
-      check-shadowing: true
       settings:
         shadow:
           strict: true
