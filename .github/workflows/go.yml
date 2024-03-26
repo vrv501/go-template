@@ -114,6 +114,7 @@ jobs:
           sbom: true
           provenance: true
           load: true
+          platforms: linux/amd64
       - name: Run Trivy Vulnerability Scanner
         uses: aquasecurity/trivy-action@062f2592684a31eb3aa050cc61e7ca1451cecd3d
         with:
