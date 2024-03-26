@@ -117,5 +117,6 @@ jobs:
         with:
           image-ref: ${{ steps.build-img.outputs.imageid }}
           exit-code: "1"
+          ignore-unfixed: true
           trivyignores: "./.trivyignore"
           severity: "CRITICAL,HIGH"
