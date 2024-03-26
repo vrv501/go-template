@@ -78,22 +78,45 @@ jobs:
       with:
         category: "/language:go"
 
-  # build-container-image:
-  #   permissions:
-  #     contents: read
-  #     actions: read
-  #   name: Build
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
-  #     - name: Build an image from Dockerfile
-  #       run: |
-  #         docker build -t docker.io/my-organization/my-app:${{ github.sha }} .
-  #     - name: Run Trivy vulnerability scanner
-  #       uses: aquasecurity/trivy-action@062f2592684a31eb3aa050cc61e7ca1451cecd3d
-  #       with:
-  #         image-ref: 'docker.io/my-organization/my-app:${{ github.sha }}'
-  #         exit-code: "1"
-  #         trivyignores: "./.trivyignore"
-  #         severity: "CRITICAL,HIGH"
+  build-container-image:
+    permissions:
+      contents: read
+      actions: read
+      packages: write
+    env:
+      REGISTRY: ghcr.io
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@9bb56186c3b09b4f86b1c65136769dd318469633
+      - name: Extract metadata
+        id: img-metadata
+        uses: docker/metadata-action@8e5442c4ef9f78752691e2d8f8d19755c6f78e81
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository }}
+      - name: Login to Container Registry
+        if: ${{ github.event_name != 'pull_request' }}
+        uses: docker/login-action@e92390c5fb421da1463c202d546fed0ec5c39f20
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          logout: true
+      - name: Build and Push
+        id: build-img
+        uses: docker/build-push-action@2cdde995de11925a030ce8070c3d77a52ffcf1c0
+        with:
+          context: .
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.img-metadata.outputs.tags }}
+          labels: ${{ steps.img-metadata.outputs.labels }}
+          platforms: linux/amd64
+      - name: Run Trivy Vulnerability Scanner
+        uses: aquasecurity/trivy-action@062f2592684a31eb3aa050cc61e7ca1451cecd3d
+        with:
+          image-ref: ${{ steps.build-img.outputs.imageid }}
+          exit-code: "1"
+          ignore-unfixed: true
+          trivyignores: "./.trivyignore"
+          severity: "CRITICAL,HIGH"
