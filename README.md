@@ -4,7 +4,7 @@ Starter VSCode Config for Building Go Apps in a debian amd64 machine
 ## Tools
 - Go Compiler: [Download-Link](https://go.dev/doc/install)
 
-- Install pre-requisite tools  
+- Install pre-requisite tools    
   ```bash
   $ sudo apt install -y gcc make curl jq
   ```
