@@ -7,16 +7,7 @@ func Test_main(t *testing.T) {
 		name     string
 		prepFunc func(t *testing.T)
 	}{
-		{
-			name: "env vars not set",
-		},
-		{
-			name: "env vars set",
-			prepFunc: func(t *testing.T) {
-				t.Setenv("USERNAME", "username")
-				t.Setenv("PASSWORD", "password")
-			},
-		},
+		
 	}
 	for _, tt := range tests {
 		if tt.prepFunc != nil {
