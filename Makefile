@@ -34,12 +34,12 @@ test: vendor generate
 .PHONY: test
 
 coverage: vendor generate
-	@mkdir -p "$(coverage_dir)/html"
+	@mkdir -p "$(coverage_dir)"
 	CGO_ENABLED=1 go test -race -covermode=atomic -coverpkg=./... -coverprofile=$(coverage_dir)/coverage.out -v ./...
 .PHONY: coverage
 
 clean:
-	@rm -rf coverage bin vendor test-reports
+	@rm -rf coverage bin vendor
 .PHONY: clean
 
 run:
