@@ -1,0 +1,12 @@
+coverage:
+  status:
+    project:
+      default:
+        target: 100%
+        threshold: 20%
+
+# https://docs.codecov.com/docs/ignoring-paths
+# ignore:
+#   - "path/to/folder"  # ignore folders and all its contents
+#   - "test_*.rb"       # wildcards accepted
+#   - "**/*.py"         # glob accepted

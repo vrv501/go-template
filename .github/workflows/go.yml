@@ -50,6 +50,7 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: ${{ github.repository }}
           files: "./coverage/coverage.out"
+          codecov_yml_path: "./.codecov.yml"
 
   build-and-analyze:
     name: codeql-analysis
