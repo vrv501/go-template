@@ -1,7 +1,12 @@
 #!/usr/bin/make
 
-export GOPRIVATE := ''
-coverage_dir := coverage
+export GOPRIVATE =  # comma seperated values without quotes & spaces
+coverage_dir = coverage
+GO_TEST_CMD = CGO_ENABLED=1 go test -race
+GO_BUILD_CMD = CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
+
+all: lint test build
+.PHONY: all
 
 vendor: go.mod go.sum
 	@go mod download
@@ -9,7 +14,7 @@ vendor: go.mod go.sum
 .PHONY: vendor
 
 build: vendor
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o bin/app -a -v cmd/main.go
+	$(GO_BUILD_CMD) -o bin/app -a -v cmd/main.go
 .PHONY: build
 
 lint: vendor .golangci.yml
@@ -30,12 +35,12 @@ generate: degenerate vendor
 .PHONY: generate
 
 test: vendor generate
-	CGO_ENABLED=1 go test -race -v ./...
+	$(GO_TEST_CMD) -v ./...
 .PHONY: test
 
 coverage: vendor generate
 	@mkdir -p "$(coverage_dir)"
-	CGO_ENABLED=1 go test -race -covermode=atomic -coverpkg=./... -coverprofile=$(coverage_dir)/coverage.out -v ./...
+	$(GO_TEST_CMD) -covermode=atomic -coverpkg=./... -coverprofile=$(coverage_dir)/coverage.out -v ./...
 .PHONY: coverage
 
 clean:
