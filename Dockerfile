@@ -13,4 +13,3 @@ RUN groupadd $APP_USER && useradd -g $APP_USER $APP_USER
 USER $APP_USER
 
 ENTRYPOINT ["/usr/bin/app"]
-HEALTHCHECK NONE
