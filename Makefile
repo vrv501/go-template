@@ -1,7 +1,6 @@
 #!/usr/bin/make
 
 export GOPRIVATE =  # comma seperated values without quotes & spaces
-coverage_dir = coverage
 GO_TEST_CMD = CGO_ENABLED=1 go test -race
 GO_BUILD_CMD = CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
 
@@ -18,6 +17,7 @@ build: vendor
 .PHONY: build
 
 lint: vendor .golangci.yml
+	@go vet ./...
 	@golangci-lint --version
 	golangci-lint run --config .golangci.yml
 .PHONY: lint
@@ -39,8 +39,8 @@ test: vendor generate
 .PHONY: test
 
 coverage: vendor generate
-	@mkdir -p "$(coverage_dir)"
-	$(GO_TEST_CMD) -covermode=atomic -coverpkg=./... -coverprofile=$(coverage_dir)/coverage.out -v ./...
+	@mkdir -p coverage
+	$(GO_TEST_CMD) -covermode=atomic -coverpkg=./... -coverprofile=coverage/coverage.out -v ./...
 .PHONY: coverage
 
 clean:
