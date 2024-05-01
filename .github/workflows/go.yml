@@ -49,7 +49,7 @@ jobs:
         run: |
           make coverage
       - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@84508663e988701840491b86de86b666e8a86bed
+        uses: codecov/codecov-action@5ecb98a3c6b747ed38dc09f787459979aebb39be
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           slug: ${{ github.repository }}
