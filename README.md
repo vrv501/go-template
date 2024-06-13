@@ -9,6 +9,11 @@ Starter VSCode Config for Building Go Apps in a debian amd64 machine
   $ sudo apt install -y gcc make curl jq
   ```
 
+- Add GOBIN to system PATH
+  ```bash
+  $ export PATH=$PATH:$(go env GOPATH)/bin
+  ```
+
 - Install golangci-lint  
   ```bash
   $ tag_name=$(curl -s -L -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-28" https://api.github.com/repos/golangci/golangci-lint/releases/latest | jq -r .tag_name)
