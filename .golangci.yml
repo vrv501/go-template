@@ -24,12 +24,14 @@ linters:
   disable:
     - contextcheck
     - cyclop
+    - deadcode
     - decorder
     - depguard
     - dogsled
     - dupword
     - errchkjson
     - execinquery
+    - exhaustivestruct
     - exhaustruct
     - exportloopref
     - forbidigo
@@ -42,28 +44,37 @@ linters:
     - gocyclo
     - godot
     - godox
+    - goerr113
     - gofumpt
     - goheader
+    - golint
     - gomnd
     - gomodguard
     - gosmopolitan 
     - grouper
+    - ifshort
     - importas
     - inamedparam
     - interfacebloat	
+    - interfacer
     - ireturn
     - loggercheck
     - maintidx
+    - maligned
     - misspell
     - nakedret
-    - nlreturn
+    - nlreturn		
+    - nosnakecase
     - paralleltest
     - prealloc
+    - scopelint
+    - structcheck
     - stylecheck
     - tagalign
     - tagliatelle
     - testableexamples
     - testpackage
+    - varcheck
     - varnamelen
     - wrapcheck
     - wsl
