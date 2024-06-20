@@ -19,7 +19,7 @@ build: vendor
 lint: vendor .golangci.yml
 	@go vet ./...
 	@golangci-lint --version
-	golangci-lint run --config .golangci.yml
+	golangci-lint run --config .golangci.yml ./...
 .PHONY: lint
 
 tidy:
