@@ -29,6 +29,7 @@ linters:
     - depguard
     - dogsled
     - dupword
+    - err113
     - errchkjson
     - execinquery
     - exhaustivestruct
@@ -44,7 +45,6 @@ linters:
     - gocyclo
     - godot
     - godox
-    - err113
     - gofumpt
     - goheader
     - golint
