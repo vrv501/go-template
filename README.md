@@ -1,5 +1,5 @@
 # go-template
-Starter VSCode Config for Building Go Apps in a debian amd64 machine
+Starter Repo Config for Building Go Apps in a debian amd64 machine
 
 ## Tools
 - Go Compiler: [Download-Link](https://go.dev/doc/install)
