@@ -131,7 +131,7 @@ formatters:
   settings:
     goimports:
       local-prefixes:
-        - github.com/vrv501/simple-api
+        - github.com/org/project # UPDATE ME
   exclusions:
     generated: lax
     paths:
