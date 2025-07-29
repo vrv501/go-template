@@ -126,7 +126,7 @@ jobs:
           labels: ${{ steps.img-metadata.outputs.labels }}
           platforms: linux/amd64
       - name: Run Trivy Vulnerability Scanner
-        uses: aquasecurity/trivy-action@6e7b7d1fd3e4fef0c5fa8cce1229c54b2c9bd0d8
+        uses: aquasecurity/trivy-action@dc5a429b52fcf669ce959baa2c2dd26090d2a6c4
         with:
           image-ref: ${{ steps.build-img.outputs.imageid }}
           exit-code: "1"
