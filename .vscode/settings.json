@@ -1,9 +1,5 @@
 {
     "gopls": {
-        "ui.semanticTokens": true,
-        "ui.semanticTokenTypes": {
-            "number": true, // delegates number syntax highlighting to vscode
-            "string": true, // delegates string syntax highlighting to vscode
-        }
+        "ui.semanticTokens": true
     }
 }
