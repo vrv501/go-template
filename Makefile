@@ -8,7 +8,7 @@ all: lint test build
 .PHONY: all
 
 build: generate tidy
-	$(GO_BUILD_CMD) -o bin/app -a -v cmd/server/main.go
+	$(GO_BUILD_CMD) -o bin/app -a -v cmd/main.go
 .PHONY: build
 
 lint: tidy .golangci.yml
@@ -44,7 +44,7 @@ clean:
 .PHONY: clean
 
 run:
-	@go run ./cmd/server/main.go
+	@go run ./cmd/main.go
 .PHONY: run
 
 clean-build: degenerate clean build
