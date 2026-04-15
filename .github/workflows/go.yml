@@ -23,9 +23,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       - name: Setup Go ToolChain
-        uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00
+        uses: actions/setup-go@7a3fe6cf4cb3a834922a1244abfce67bcef6a0c5
         with:
           go-version-file: "./go.mod"
       - name: golangci-lint
@@ -39,9 +39,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       - name: Setup Go ToolChain
-        uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00
+        uses: actions/setup-go@7a3fe6cf4cb3a834922a1244abfce67bcef6a0c5
         with:
           go-version-file: "./go.mod"
       - name: Check generated files
@@ -59,9 +59,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       - name: Setup Go ToolChain
-        uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00
+        uses: actions/setup-go@7a3fe6cf4cb3a834922a1244abfce67bcef6a0c5
         with:
           go-version-file: "./go.mod"
       - name: Calculate Code Coverage
@@ -88,11 +88,11 @@ jobs:
       contents: read
     steps:
       - name: Checkout repository
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with: 
           fetch-depth: 0
       - name: Setup Go ToolChain
-        uses: actions/setup-go@44694675825211faa026b3c33043df3e48a5fa00
+        uses: actions/setup-go@7a3fe6cf4cb3a834922a1244abfce67bcef6a0c5
         with:
           go-version-file: "./go.mod"
       - name: Initialize CodeQL
@@ -122,17 +122,17 @@ jobs:
       - coverage
     steps:
       - name: Checkout repository
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with: 
           fetch-depth: 0
       - name: Extract metadata
         id: img-metadata
-        uses: docker/metadata-action@318604b99e75e41977312d83839a89be02ca4893
+        uses: docker/metadata-action@c299e40c65443455700f0fdfc63efafe5b349051
         with:
           images: ${{ env.REGISTRY }}/${{ github.repository }}
       - name: Login to Container Registry
         if: ${{ github.event_name != 'pull_request' && github.ref_type == 'tag' }}
-        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -148,7 +148,7 @@ jobs:
           labels: ${{ steps.img-metadata.outputs.labels }}
           platforms: linux/amd64
       - name: Run Trivy Vulnerability Scanner
-        uses: aquasecurity/trivy-action@b6643a29fecd7f34b3597bc6acb0a98b03d33ff8
+        uses: aquasecurity/trivy-action@c1824fd6edce30d7ab345a9989de00bbd46ef284
         with:
           image-ref: ${{ steps.build-img.outputs.imageid }}
           exit-code: "1"
