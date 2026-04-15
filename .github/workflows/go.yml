@@ -132,7 +132,7 @@ jobs:
           images: ${{ env.REGISTRY }}/${{ github.repository }}
       - name: Login to Container Registry
         if: ${{ github.event_name != 'pull_request' && github.ref_type == 'tag' }}
-        uses: docker/login-action@5e57cd118135c172c3672efd75eb46360885c0ef
+        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
